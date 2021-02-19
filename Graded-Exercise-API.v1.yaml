@@ -363,6 +363,9 @@ paths:
                         seller_email:
                           type: string
                           minLength: 1
+                        seller_id:
+                          type: string
+                          format: uuid
                     posting_images:
                       type: array
                       minItems: 0

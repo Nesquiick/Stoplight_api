@@ -228,71 +228,58 @@ paths:
                 posting_title:
                   type: string
                   minLength: 1
-                  description: Item name or title for it
                 posting_description:
                   type: string
                   minLength: 1
-                  description: Short description of the item
                 posting_category:
                   type: string
                   minLength: 1
-                  description: 'Category of the item (clothing,cars, ...)'
                 posting_location:
                   type: string
                   minLength: 1
-                  description: 'Location of the item (city, country, ...)'
                 posting_price:
                   type: number
-                  description: Asking price for the item in euros
-                  format: float
                   minimum: 0
-                  exclusiveMaximum: false
-                posting_posting_date:
+                posting_date:
                   type: string
                   minLength: 1
                   format: date-time
-                  description: 'Date of creation of the posting, RFC3339 format'
                 posting_delivery_type:
                   type: string
                   minLength: 1
                   enum:
                     - Shipping
-                    - Pickup
-                  description: Delevery type of the item (Shipping or Pickup)
-                posting_seller_contact:
-                  type: object
-                  required:
-                    - seller_name
-                    - seller_email
-                  description: contact information of the seller
-                  properties:
-                    seller_name:
-                      type: string
-                      minLength: 1
-                      description: First name and family name of the seller
-                    seller_email:
-                      type: string
-                      minLength: 1
-                      format: email
-                      example: john@demo.com
-                      description: valid email of the seller
+                    - PickUp
                 posting_images:
                   type: array
+                  uniqueItems: true
                   minItems: 0
                   maxItems: 3
-                  description: 0 to 4 images of the item
                   items:
                     type: string
-                    example: ./images/image1.jpg
+                seller_name:
+                  type: string
+                  minLength: 1
+                seller_email:
+                  type: string
+                  minLength: 1
+                  format: email
+                seller_id:
+                  type: string
+                  minLength: 1
+                  format: uuid
               required:
                 - posting_title
                 - posting_description
                 - posting_category
                 - posting_location
                 - posting_price
-                - posting_posting_date
+                - posting_date
                 - posting_delivery_type
-                - posting_seller_contact
+                - posting_images
+                - seller_name
+                - seller_email
+                - seller_id
             examples:
               example-1:
                 value:
@@ -321,67 +308,64 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 description: ''
-                minItems: 1
-                uniqueItems: true
-                items:
-                  type: object
-                  properties:
-                    posting_title:
+                type: object
+                properties:
+                  posting_title:
+                    type: string
+                    minLength: 1
+                  posting_description:
+                    type: string
+                    minLength: 1
+                  posting_category:
+                    type: string
+                    minLength: 1
+                  posting_location:
+                    type: string
+                    minLength: 1
+                  posting_price:
+                    type: number
+                    minimum: 0
+                  posting_date:
+                    type: string
+                    minLength: 1
+                    format: date-time
+                  posting_delivery_type:
+                    type: string
+                    minLength: 1
+                    enum:
+                      - Shipping
+                      - PickUp
+                  posting_images:
+                    type: array
+                    uniqueItems: true
+                    minItems: 0
+                    maxItems: 3
+                    items:
                       type: string
-                      minLength: 1
-                    posting_description:
-                      type: string
-                      minLength: 1
-                    posting_category:
-                      type: string
-                      minLength: 1
-                    posting_location:
-                      type: string
-                      minLength: 1
-                    posting_price:
-                      type: number
-                    posting_posting_date:
-                      type: string
-                      minLength: 1
-                    posting_delivery_type:
-                      type: string
-                      minLength: 1
-                      enum:
-                        - Shipping
-                        - Pickup
-                    posting_seller_contact:
-                      type: object
-                      required:
-                        - seller_name
-                        - seller_email
-                      properties:
-                        seller_name:
-                          type: string
-                          minLength: 1
-                        seller_email:
-                          type: string
-                          minLength: 1
-                        seller_id:
-                          type: string
-                          format: uuid
-                    posting_images:
-                      type: array
-                      minItems: 0
-                      maxItems: 3
-                      items:
-                        type: string
-                  required:
-                    - posting_title
-                    - posting_description
-                    - posting_category
-                    - posting_location
-                    - posting_price
-                    - posting_posting_date
-                    - posting_delivery_type
-                    - posting_seller_contact
-                    - posting_images
+                  seller_name:
+                    type: string
+                    minLength: 1
+                  seller_email:
+                    type: string
+                    minLength: 1
+                    format: email
+                  seller_id:
+                    type: string
+                    minLength: 1
+                    format: uuid
+                required:
+                  - posting_title
+                  - posting_description
+                  - posting_category
+                  - posting_location
+                  - posting_price
+                  - posting_date
+                  - posting_delivery_type
+                  - posting_images
+                  - seller_name
+                  - seller_email
+                  - seller_id
       description: Get all the posting(s) of a user
   '/users/{user_id}/postings/{posting_id}':
     parameters:
@@ -421,42 +405,47 @@ paths:
                     minLength: 1
                   posting_price:
                     type: number
-                  posting_posting_date:
+                    minimum: 0
+                  posting_date:
                     type: string
                     minLength: 1
+                    format: date-time
                   posting_delivery_type:
                     type: string
                     minLength: 1
                     enum:
-                      - Pickup
                       - Shipping
-                  posting_seller_contact:
-                    type: object
-                    required:
-                      - seller_name
-                      - seller_email
-                    properties:
-                      seller_name:
-                        type: string
-                        minLength: 1
-                      seller_email:
-                        type: string
-                        minLength: 1
-                  images:
+                      - PickUp
+                  posting_images:
                     type: array
+                    uniqueItems: true
                     minItems: 0
                     maxItems: 3
                     items:
                       type: string
+                  seller_name:
+                    type: string
+                    minLength: 1
+                  seller_email:
+                    type: string
+                    minLength: 1
+                    format: email
+                  seller_id:
+                    type: string
+                    minLength: 1
+                    format: uuid
                 required:
                   - posting_title
                   - posting_description
                   - posting_category
                   - posting_location
                   - posting_price
-                  - posting_posting_date
+                  - posting_date
                   - posting_delivery_type
-                  - posting_seller_contact
+                  - posting_images
+                  - seller_name
+                  - seller_email
+                  - seller_id
               examples: {}
         '404':
           description: Not Found
@@ -492,44 +481,47 @@ paths:
                   minLength: 1
                 posting_price:
                   type: number
-                posting_posting_date:
+                  minimum: 0
+                posting_date:
                   type: string
                   minLength: 1
+                  format: date-time
                 posting_delivery_type:
                   type: string
                   minLength: 1
                   enum:
                     - Shipping
-                    - Pickup
-                posting_seller_contact:
-                  type: object
-                  required:
-                    - seller_name
-                    - seller_email
-                  properties:
-                    seller_name:
-                      type: string
-                      minLength: 1
-                    seller_email:
-                      type: string
-                      minLength: 1
-                      format: email
-                      example: jon@demo.fi
-                images:
+                    - PickUp
+                posting_images:
                   type: array
+                  uniqueItems: true
                   minItems: 0
                   maxItems: 3
                   items:
                     type: string
+                seller_name:
+                  type: string
+                  minLength: 1
+                seller_email:
+                  type: string
+                  minLength: 1
+                  format: email
+                seller_id:
+                  type: string
+                  minLength: 1
+                  format: uuid
               required:
                 - posting_title
                 - posting_description
                 - posting_category
                 - posting_location
                 - posting_price
-                - posting_posting_date
+                - posting_date
                 - posting_delivery_type
-                - posting_seller_contact
+                - posting_images
+                - seller_name
+                - seller_email
+                - seller_id
         description: ''
     delete:
       summary: ''
@@ -537,6 +529,8 @@ paths:
       responses:
         '204':
           description: No Content
+        '400':
+          description: Bad Request
         '404':
           description: Not Found
       description: Delete a posting
@@ -550,63 +544,65 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 description: ''
-                minItems: 1
-                uniqueItems: true
-                items:
-                  type: object
-                  properties:
-                    posting_title:
+                type: object
+                properties:
+                  posting_title:
+                    type: string
+                    minLength: 1
+                  posting_description:
+                    type: string
+                    minLength: 1
+                  posting_category:
+                    type: string
+                    minLength: 1
+                  posting_location:
+                    type: string
+                    minLength: 1
+                  posting_price:
+                    type: number
+                    minimum: 0
+                    exclusiveMaximum: false
+                  posting_date:
+                    type: string
+                    minLength: 1
+                    format: date-time
+                  posting_delivery_type:
+                    type: string
+                    minLength: 1
+                    enum:
+                      - Shipping
+                      - PickUp
+                  posting_images:
+                    type: array
+                    uniqueItems: true
+                    minItems: 0
+                    maxItems: 3
+                    items:
                       type: string
-                      minLength: 1
-                    posting_description:
-                      type: string
-                      minLength: 1
-                    posting_category:
-                      type: string
-                      minLength: 1
-                    posting_location:
-                      type: string
-                      minLength: 1
-                    posting_price:
-                      type: number
-                    posting_posting_date:
-                      type: string
-                      minLength: 1
-                    posting_delivery_type:
-                      type: string
-                      minLength: 1
-                      enum:
-                        - Shipping
-                        - Pickup
-                    posting_seller_contact:
-                      type: object
-                      required:
-                        - seller_name
-                        - seller_email
-                      properties:
-                        seller_name:
-                          type: string
-                          minLength: 1
-                        seller_email:
-                          type: string
-                          minLength: 1
-                    images:
-                      type: array
-                      minItems: 0
-                      maxItems: 3
-                      items:
-                        type: string
-                  required:
-                    - posting_title
-                    - posting_description
-                    - posting_category
-                    - posting_location
-                    - posting_price
-                    - posting_posting_date
-                    - posting_delivery_type
-                    - posting_seller_contact
+                  seller_name:
+                    type: string
+                    minLength: 1
+                  seller_email:
+                    type: string
+                    minLength: 1
+                    format: email
+                  seller_id:
+                    type: string
+                    minLength: 1
+                    format: uuid
+                required:
+                  - posting_title
+                  - posting_description
+                  - posting_category
+                  - posting_location
+                  - posting_price
+                  - posting_date
+                  - posting_delivery_type
+                  - posting_images
+                  - seller_name
+                  - seller_email
+                  - seller_id
               examples: {}
         '404':
           description: Not Found
@@ -645,7 +641,8 @@ paths:
                     minLength: 1
                   posting_price:
                     type: number
-                  posting_posting_date:
+                    minimum: 0
+                  posting_date:
                     type: string
                     minLength: 1
                     format: date-time
@@ -653,37 +650,38 @@ paths:
                     type: string
                     minLength: 1
                     enum:
-                      - Pickup
                       - Shipping
-                  posting_seller_contact:
-                    type: object
-                    required:
-                      - seller_name
-                      - seller_email
-                    properties:
-                      seller_name:
-                        type: string
-                        minLength: 1
-                      seller_email:
-                        type: string
-                        minLength: 1
-                        format: email
-                        example: demo@demo.fr
-                  images:
+                      - PickUp
+                  posting_images:
                     type: array
+                    uniqueItems: true
                     minItems: 0
                     maxItems: 3
                     items:
                       type: string
+                  seller_name:
+                    type: string
+                    minLength: 1
+                  seller_email:
+                    type: string
+                    minLength: 1
+                    format: email
+                  seller_id:
+                    type: string
+                    minLength: 1
+                    format: uuid
                 required:
                   - posting_title
                   - posting_description
                   - posting_category
                   - posting_location
                   - posting_price
-                  - posting_posting_date
+                  - posting_date
                   - posting_delivery_type
-                  - posting_seller_contact
+                  - posting_images
+                  - seller_name
+                  - seller_email
+                  - seller_id
       operationId: get-postings-posting_id
       description: Get the information of one posting
 components:

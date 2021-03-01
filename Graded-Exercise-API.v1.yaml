@@ -138,7 +138,7 @@ paths:
     parameters: []
   /users/login:
     post:
-      summary: ''
+      summary: Connect a user
       operationId: post-login
       responses:
         '200':
@@ -194,7 +194,7 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: Create a posting by a user
       operationId: post-users-user_id-postings
       responses:
         '201':
@@ -290,7 +290,7 @@ paths:
                 - seller_id
       description: Add a new item that the user sell.
     get:
-      summary: ''
+      summary: Get all the postings from a user
       operationId: get-users-user_id-postings
       responses:
         '200':
@@ -389,7 +389,7 @@ paths:
         in: path
         required: true
     put:
-      summary: ''
+      summary: Modify a posting
       operationId: put-users-user_id-postings-posting_id
       responses:
         '200':
@@ -475,7 +475,7 @@ paths:
                 - posting_date
         description: ''
     delete:
-      summary: ''
+      summary: Delete a posting
       operationId: delete-users-user_id-postings-posting_id
       responses:
         '200':
@@ -487,7 +487,7 @@ paths:
       description: Delete a posting
   /postings:
     get:
-      summary: Your GET endpoint
+      summary: Get all the postings
       tags: []
       responses:
         '200':
@@ -586,7 +586,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary:Get the information of a posting
       tags: []
       responses:
         '200':
@@ -681,7 +681,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get all the posting that are in this category name
       tags: []
       responses:
         '200':
@@ -780,7 +780,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get the posting order by the smallest distance from you
       tags: []
       responses:
         '200':
@@ -874,7 +874,7 @@ paths:
       description: Will give the posting by order of the nearest to the farest
   /postings/date:
     get:
-      summary: Your GET endpoint
+      summary: Get the postings order by their creation
       tags: []
       responses:
         '200':
@@ -967,7 +967,7 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: Upload an image for a posting
       operationId: post-users-users_id-postings-upload
       responses:
         '200':

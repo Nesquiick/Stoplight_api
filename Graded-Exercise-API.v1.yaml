@@ -6,7 +6,7 @@ info:
     name: Noiraud Loreleï
   description: API which primary function is to serve as a platform for selling and buying used items. An example of this in Finland would be Tori.fi or globally ebay.com.
 servers:
-  - url: 'https://graded-exercise.herokuapp.com/'
+  - url: 'https://graded-exercise.herokuapp.com'
 paths:
   '/users/{userId}':
     parameters:
@@ -586,7 +586,7 @@ paths:
         in: path
         required: true
     get:
-      summary:Get the information of a posting
+      summary: Get the information of a posting
       tags: []
       responses:
         '200':
